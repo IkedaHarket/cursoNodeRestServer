@@ -8,6 +8,7 @@ class Server{
         this.app = express();
         this.port = process.env.PORT;
         this.usuariosPath = '/api/usuarios';
+        this.authPath     = '/api/auth'
         //Conectar DB
         this.conectarDB();
         //Middlewares: Funciones que añaden otra funcionalidad a un webServer
@@ -26,6 +27,7 @@ class Server{
         this.app.use(express.static('public'));//Directorio publico
     }
     routes(){
+        this.app.use(this.authPath,require('../routes/auth'));
         this.app.use(this.usuariosPath,require('../routes/usuarios'));
     }
     listen(){
